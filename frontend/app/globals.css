@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4efe6;
+  --foreground: #032147;
+  --accent-yellow: #ecad0a;
+  --blue-primary: #209dd7;
+  --purple-secondary: #753991;
+  --dark-navy: #032147;
+  --gray-text: #888888;
+  --panel: rgba(255, 255, 255, 0.84);
+  --panel-strong: rgba(255, 255, 255, 0.94);
+  --border: rgba(3, 33, 71, 0.12);
+  --shadow: 0 24px 60px rgba(3, 33, 71, 0.12);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  background-image:
+    radial-gradient(circle at top left, rgba(236, 173, 10, 0.25), transparent 28%),
+    radial-gradient(circle at top right, rgba(32, 157, 215, 0.2), transparent 24%),
+    linear-gradient(180deg, #fff8ec 0%, #f4efe6 42%, #edf4fb 100%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.boardPage {
+  padding: 40px 20px 56px;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto 28px;
+  max-width: 1400px;
+}
+
+.eyebrow,
+.laneLabel,
+.cardEyebrow {
+  margin: 0 0 8px;
+  color: var(--blue-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.heroText {
+  margin: 0;
+  max-width: 56rem;
+  color: color-mix(in srgb, var(--foreground) 70%, white);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.boardGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(240px, 1fr));
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 1400px;
+  align-items: start;
+}
+
+.laneShell {
+  display: grid;
+  gap: 10px;
+}
+
+.renameField input,
+.composer input,
+.composer textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--dark-navy);
+  outline: none;
+}
+
+.renameField input {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.renameField input:focus,
+.composer input:focus,
+.composer textarea:focus {
+  border-color: color-mix(in srgb, var(--blue-primary) 55%, white);
+  box-shadow: 0 0 0 4px rgba(32, 157, 215, 0.12);
+}
+
+.lane {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 16px;
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+.laneOver {
+  border-color: color-mix(in srgb, var(--accent-yellow) 72%, white);
+  box-shadow:
+    var(--shadow),
+    0 0 0 4px rgba(236, 173, 10, 0.12);
+}
+
+.laneHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.laneHeader h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.1;
+}
+
+.laneCount {
+  min-width: 44px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(236, 173, 10, 0.16);
+  color: var(--dark-navy);
+  text-align: center;
+  font-weight: 700;
+}
+
+.laneBody,
+.cardList,
+.composer {
+  display: grid;
+  gap: 12px;
+}
+
+.cardShell {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+}
+
+.cardGhost {
+  opacity: 0.35;
+}
+
+.cardGrab,
+.cardDelete,
+.composer button {
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.cardGrab {
+  display: grid;
+  gap: 4px;
+  align-content: center;
+  padding: 16px 8px 0 4px;
+  background: transparent;
+}
+
+.cardGrab span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gray-text) 75%, white);
+}
+
+.card {
+  border-radius: 22px;
+  padding: 16px;
+  background: var(--panel-strong);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  box-shadow: 0 14px 30px rgba(3, 33, 71, 0.08);
+}
+
+.cardOverlay {
+  rotate: 2deg;
+  box-shadow: 0 28px 60px rgba(3, 33, 71, 0.18);
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.card p {
+  margin: 0;
+  color: color-mix(in srgb, var(--gray-text) 88%, black);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.cardDelete {
+  align-self: start;
+  padding: 10px 0 0 6px;
+  background: transparent;
+  color: var(--gray-text);
+  font-size: 0.82rem;
+}
+
+.cardDelete:hover,
+.cardGrab:hover {
+  transform: translateY(-1px);
+}
+
+.composer {
+  padding-top: 4px;
+}
+
+.composer input,
+.composer textarea {
+  padding: 12px 14px;
+}
+
+.composer textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.composer button {
+  padding: 13px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--purple-secondary), #9962b1);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 14px 24px rgba(117, 57, 145, 0.25);
+}
+
+.composer button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 28px rgba(117, 57, 145, 0.3);
+}
+
+@media (max-width: 1280px) {
+  .boardGrid {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .boardPage {
+    padding-inline: 14px;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+  }
+
+  .boardGrid {
+    grid-template-columns: 1fr;
+  }
+}
